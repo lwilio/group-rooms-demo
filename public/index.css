@@ -1,0 +1,57 @@
+body {
+    background-color: black;
+    color: white;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.signal {
+    letter-spacing: 10px;
+    font-size: 150%;
+}
+
+.signal-text {
+    letter-spacing: 2px;
+    font-size: 100%
+}
+
+#header {
+    text-align: center;
+    border-style: solid;
+    border-color: white;
+}
+
+#footer {
+    text-align: center;
+}
+
+#footer img {
+    height: 2em;
+    vertical-align: middle;
+}
+
+#divRoomInfo {
+    float: left;
+}
+
+#divLocalVideoContainer {
+    padding: 10px;
+    float: right;
+    height: 120px;
+    text-align: right;
+}
+
+#divRemoteVideoContainer {
+    clear: both;
+    text-align: center;
+    height: 50%;
+    min-height: 300px;
+}
+
+#divLocalVideoContainer video {
+    width: 15%;
+}
+
+#divRemoteVideoContainer video {
+    width: 35%;
+    padding: 5px;
+}

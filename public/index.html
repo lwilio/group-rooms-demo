@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Group Rooms Demo Signal 2017 </title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div id="header">
+        <p>
+            <span class="signal"><b>SIGNAL</b></span>
+            <span class="signal-text"> THE DEVELOPER CONFERENCE <em>by</em> TWILIO</span>
+        </p>
+    </div>
+    <div id="divRoomInfo">
+        <br><br>
+        <label>Number of participants:&nbsp;</label><label id="labelNumParticipants">0</label><br>
+    </div>
+    <div id="divLocalVideoContainer">
+    </div>
+    <div id="divRemoteVideoContainer">
+    </div>
+    <div id="footer">
+        <p> Powered by <img src=/img/logo.png> </p>
+    </div>
+    <script src="/socket.io-client/dist/socket.io.js"></script>
+    <script src="https://media.twiliocdn.com/sdk/js/video/releases/1.0.0/twilio-video.min.js"></script>
+    <script src="/client.js"></script>
+</body>
+
+</html>
