@@ -38,6 +38,8 @@ jspm_packages
 
 # Private account information and keys
 .env
+prod.env
+dev.env
 
 # Socket.io client scripts
 public/socket.io-client

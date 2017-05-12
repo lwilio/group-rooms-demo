@@ -50,11 +50,17 @@ request.auth({
 });
 
 request.end(function(response) {
+    if (response.error) {
+        console.log("Error creating room " + response.error)
+        process.exit(-1);
+    }
+
     if (response.ok) {
         console.log("Room " + response.body.unique_name + " successfully created");
-        console.log("Room name should be " + roomName);
+        console.log("Room  " + roomName + " ready to receive client connections");
     } else {
-        console.log(response.body);
+        console.log("Error creating room" + response.body);
+        process.exit(-1);
     }
 });
 
