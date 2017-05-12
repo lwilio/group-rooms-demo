@@ -41,7 +41,7 @@ var API_KEY_SECRET = process.env.API_KEY_SECRET; //Get yours here: https://www.t
 var roomName = randomstring.generate(10);
 var request = unirest.post('https://video.twilio.com/v1/Rooms')
     .send("Type=group")
-    .send("Uniquename=" + roomName)
+    .send("UniqueName=" + roomName)
     .send("RecordParticipantsOnConnect=false");
 request.auth({
     user: API_KEY_SID,
@@ -51,7 +51,8 @@ request.auth({
 
 request.end(function(response) {
     if (response.ok) {
-        console.log("Room " + roomName + " successfully created")
+        console.log("Room " + response.body.unique_name + " successfully created");
+        console.log("Room name should be " + roomName);
     } else {
         console.log(response.body);
     }
