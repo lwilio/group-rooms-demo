@@ -68,7 +68,7 @@ request.end(function(response) {
 //AccessToken management
 
 //Twilio's utilities for having AccessTokens working.
-var AccessToken = require('Twilio').jwt.AccessToken;
+var AccessToken = require('twilio').jwt.AccessToken;
 var VideoGrant = AccessToken.VideoGrant;
 
 io.on('connection', function(socket) {
