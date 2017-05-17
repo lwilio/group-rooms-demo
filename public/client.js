@@ -38,20 +38,17 @@ function connectToRoom(msg) {
 
         //Display currently connected participants' tracks, if any
         room.participants.forEach(function(participant) {
-            participant.tracks.forEach(function(track) {
-                var mediaElement = track.attach();
-                document.getElementById('divRemoteVideoContainer').appendChild(mediaElement);
-            });
-            onParticipantConnected(participant);
+            participant.tracks.forEach(attachTrack);
+            manageParticipant(participant);
         });
 
         //Add handlers for managing participants events
-        room.on('participantConnected', onParticipantConnected);
+        room.on('participantConnected', manageParticipant);
         room.on('participantDisconnected', onParticipantDisconnected);
     });
 }
 
-function onParticipantConnected(participant) {
+function manageParticipant(participant) {
     console.log("Participant " + participant.identity + " connected");
     participant.on('trackAdded', attachTrack);
     participant.on('trackRemoved', detachTrack);

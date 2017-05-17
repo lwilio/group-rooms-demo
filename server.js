@@ -40,7 +40,7 @@ var API_KEY_SECRET = process.env.API_KEY_SECRET; //Get yours here: https://www.t
 
 var roomName = randomstring.generate(10);
 var request = unirest.post('https://video.twilio.com/v1/Rooms')
-    .send("Type=group")
+    .send("Type=group") //Type=peer-to-peer | Type=group
     .send("UniqueName=" + roomName)
     .send("RecordParticipantsOnConnect=false");
 request.auth({
