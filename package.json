@@ -4,6 +4,10 @@
     "description": "Signal San Francisco 2017 - Programmable Video Group Rooms demo",
     "author": "Twilio",
     "license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/lwilio/group-rooms-demo"
+    },
     "main": "server.js",
     "scripts": {
         "doCopy": "copyfiles -f node_modules/socket.io-client/dist/socket.io.js public/socket.io-client/dist/",
