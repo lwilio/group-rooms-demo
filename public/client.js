@@ -20,7 +20,9 @@ window.addEventListener("load", function() {
 });
 
 function connectToRoom(msg) {
+    console.log("Connecting to room " + msg.roomName + " with jwtToken: " + msg.jwtToken);
     Video.connect(msg.jwtToken, {
+        name: msg.roomName,
         video: enableAudio,
         audio: enableVideo
     }).then(function(room) {
@@ -50,12 +52,14 @@ function connectToRoom(msg) {
 }
 
 function onParticipantConnected(participant) {
+    console.log("Participant " + participant.identity + " connected");
     participant.on('trackAdded', attachTrack);
     participant.on('trackRemoved', detachTrack);
     updateNumParticipants();
 }
 
 function onParticipantDisconnected(participant) {
+    console.log("Participant " + participant.identity + " disconnected");
     participant.tracks.forEach(detachTrack);
     updateNumParticipants();
 }

@@ -23,7 +23,7 @@ var httpsOptions = {
 };
 
 var server = https.createServer(httpsOptions, app);
-var port = 3000;
+var port = process.env.PORT || 8443;
 server.listen(port, function() {
     console.log("Express server listening on *:" + port);
 });
@@ -91,8 +91,12 @@ io.on('connection', function(socket) {
         accessToken.addGrant(grant);
 
         var answer = {
-            jwtToken: accessToken.toJwt()
+            jwtToken: accessToken.toJwt(),
+            roomName: roomName
         }
+
+        console.log("JWT accessToken generated: " + accessToken.toJwt());
+
         socket.emit("accessToken", answer);
     });
 });
