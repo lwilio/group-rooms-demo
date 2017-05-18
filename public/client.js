@@ -13,7 +13,7 @@ window.addEventListener("load", function() {
     socket.emit('getAccessToken');
 
     //Support for only viewers: participats that don't publish new tracks but subscribe to existing tracks
-    if (window.location.href.search("role=onlyViewer") > 0) {
+    if (isViewer()) {
         enableVideo = false;
         enableAudio = false;
     }
@@ -61,17 +61,17 @@ function onParticipantDisconnected(participant) {
     updateNumParticipants();
 }
 
-function attachTrack(track){
-  var mediaElement = track.attach();
-  document.getElementById('divRemoteVideoContainer').appendChild(mediaElement);
-  if(track.kind == 'video') updateDisplay(1);
+function attachTrack(track) {
+    var mediaElement = track.attach();
+    document.getElementById('divRemoteVideoContainer').appendChild(mediaElement);
+    if (track.kind == 'video') updateDisplay(1);
 }
 
-function detachTrack(track){
-  track.detach().forEach(function(el) {
-      el.remove();
-  });
-  if(track.kind == 'video') updateDisplay(-1)
+function detachTrack(track) {
+    track.detach().forEach(function(el) {
+        el.remove();
+    });
+    if (track.kind == 'video') updateDisplay(-1)
 }
 
 function updateNumParticipants() {
@@ -79,12 +79,19 @@ function updateNumParticipants() {
     labelNumParticipants.innerHTML = room.participants.size + 1;
 }
 
-function updateDisplay(num){
-  numVideoTracks += num;
-  var videoTagWidth = 100/(1+numVideoTracks);
+function updateDisplay(num) {
+    numVideoTracks += num;
+    var videoTagWidth = 100 / (1 + numVideoTracks);
 
-  var remoteVideoTags = document.querySelectorAll("#divRemoteVideoContainer video")
-  remoteVideoTags.forEach(function(videoTag){
-    videoTag.style.width = + videoTagWidth + '%';
-  });
+    var remoteVideoTags = document.querySelectorAll("#divRemoteVideoContainer video")
+    remoteVideoTags.forEach(function(videoTag) {
+        videoTag.style.width = +videoTagWidth + '%';
+    });
+}
+
+function isViewer() {
+    if (window.location.href.search("role=onlyViewer") > 0) return true; //Common case for website
+    if (window.location.href.search("presenter.twilio-video.com") > 0) return false; //presenter.twilio-video.com demo
+    if (window.location.href.search("twilio-video.com") > 0) return true; //rest of domains on twilio-video.com demo
+    return false; //by default, presenter
 }
