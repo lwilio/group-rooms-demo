@@ -55,3 +55,7 @@ body {
     width: 35%;
     padding: 5px;
 }
+
+video {
+    background: transparent url('/img/spinner.gif')  no-repeat 50% 50%;
+ }
