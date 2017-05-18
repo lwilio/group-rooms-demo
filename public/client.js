@@ -28,10 +28,10 @@ function connectToRoom(msg) {
     }).then(function(room) {
 
         window.room = room;
-        updateNumParticipants();
 
         //Display local tracks, if any
         room.localParticipant.tracks.forEach(function(track) {
+            if (track.kind == "audio") return; //Typically, I don't want to listen my own audio
             var mediaElement = track.attach();
             document.getElementById('divLocalVideoContainer').appendChild(mediaElement);
         });
@@ -39,23 +39,23 @@ function connectToRoom(msg) {
         //Display currently connected participants' tracks, if any
         room.participants.forEach(function(participant) {
             participant.tracks.forEach(attachTrack);
-            manageParticipant(participant);
+            manageConnectedParticipant(participant);
         });
 
         //Add handlers for managing participants events
-        room.on('participantConnected', manageParticipant);
-        room.on('participantDisconnected', onParticipantDisconnected);
+        room.on('participantConnected', manageConnectedParticipant);
+        room.on('participantDisconnected', manageDisconnectedParticipant);
     });
 }
 
-function manageParticipant(participant) {
+function manageConnectedParticipant(participant) {
     console.log("Participant " + participant.identity + " connected");
     participant.on('trackAdded', attachTrack);
     participant.on('trackRemoved', detachTrack);
     updateNumParticipants();
 }
 
-function onParticipantDisconnected(participant) {
+function manageDisconnectedParticipant(participant) {
     console.log("Participant " + participant.identity + " disconnected");
     participant.tracks.forEach(detachTrack);
     updateNumParticipants();
