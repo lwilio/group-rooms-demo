@@ -43,6 +43,7 @@ dev.env
 
 # Socket.io client scripts
 public/socket.io-client
+public/detectrtc
 
 # ngrok
 ngrok

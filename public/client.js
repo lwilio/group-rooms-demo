@@ -8,6 +8,11 @@ var numVideoTracks = 0;
 
 window.addEventListener("load", function() {
 
+    if(!DetectRTC.isWebRTCSupported){
+      window.alert("This browser does not seem to support WebRTC. Please use Chrome or Firefox for opening this application");
+      return;
+    }
+
     var socket = io();
     socket.on('accessToken', connectToRoom);
     socket.emit('getAccessToken');
@@ -45,6 +50,8 @@ function connectToRoom(msg) {
         //Add handlers for managing participants events
         room.on('participantConnected', manageConnectedParticipant);
         room.on('participantDisconnected', manageDisconnectedParticipant);
+
+        updateNumParticipants();
     });
 }
 
