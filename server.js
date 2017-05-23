@@ -4,6 +4,7 @@
 //The typical utilities required for having things working
 var fs = require('fs');
 var https = require('https');
+var http = require('http');
 var path = require('path');
 var randomstring = require('randomstring');
 var unirest = require('unirest');
@@ -12,24 +13,39 @@ var express = require('express');
 //Load configuration from .env config file
 require('dotenv').load();
 
+//Load launch options from command line
+var protocol = process.argv[2];
+if(!protocol || protocol != 'http' || protocol != 'https'){
+  protocol = 'http';
+}
+
+var port = parseInt(process.argv[3]);
+if(!port || port < 1 || port > 65535){
+  port = protocol == 'https' ? 8443 : 8080;
+}
+
 //Set up our web server
 var app = express();
 var publicpath = path.join(__dirname, "./public");
 app.use("/", express.static(publicpath));
 
-var httpsOptions = {
-    key: fs.readFileSync('keys/server.key'),
-    cert: fs.readFileSync('keys/server.crt')
-};
+var server;
 
-var server = https.createServer(httpsOptions, app);
-var port = process.env.PORT || 8443;
+if(protocol == 'https'){
+  var httpsOptions = {
+      key: fs.readFileSync('keys/server.key'),
+      cert: fs.readFileSync('keys/server.crt')
+  };
+  server = https.createServer(httpsOptions, app);
+} else {
+  server = http.createServer(app);
+}
+
 server.listen(port, function() {
     console.log("Express server listening on *:" + port);
 });
 
 var io = require('socket.io')(server);
-
 
 //Create a room with a random name
 //Warning: this room will only exist for 5 minutes.

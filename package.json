@@ -12,7 +12,7 @@
     "scripts": {
         "doCopySio": "copyfiles -f node_modules/socket.io-client/dist/socket.io.js public/socket.io-client/dist/",
         "doCopyDRTC": "copyfiles -f node_modules/detectrtc/DetectRTC.js public/detectrtc/",
-        "start": "npm run doCopySio && npm run doCopyDRTC && node server.js"
+        "doCopy": "npm run doCopySio && npm run doCopyDRTC"
     },
     "dependencies": {
         "express": "^4.15.2",

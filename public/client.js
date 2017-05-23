@@ -3,7 +3,7 @@
 var Video = Twilio.Video;
 var room;
 var enableVideo = true;
-var enableAudio = true;
+var enableAudio = false; //Set to false for demo purposes. Set it to true if you want presenters to be able to chat
 var numVideoTracks = 0;
 
 window.addEventListener("load", function() {
@@ -28,8 +28,8 @@ function connectToRoom(msg) {
     console.log("Connecting to room " + msg.roomName + " with jwtToken: " + msg.jwtToken);
     Video.connect(msg.jwtToken, {
         name: msg.roomName,
-        video: enableAudio,
-        audio: enableVideo
+        video: enableVideo,
+        audio: enableAudio
     }).then(function(room) {
 
         window.room = room;
@@ -97,8 +97,8 @@ function updateDisplay(num) {
 }
 
 function isViewer() {
-    if (window.location.href.search("role=onlyViewer") > 0) return true; //Common case for website
-    if (window.location.href.search("presenter.twilio-video.com") > 0) return false; //presenter.twilio-video.com demo
-    if (window.location.href.search("twilio-video.com") > 0) return true; //rest of domains on twilio-video.com demo
-    return false; //by default, presenter
+    if (window.location.href.search("role=viewer") > 0) return true; //Common case for website
+    if (window.location.href.search("role=presenter") > 0) return false; //Common case for website
+    if (window.location.href.search("localhost") > 0) return false; //connecting from localhost makes you presenter by defult
+    return true; //by default, viewer
 }

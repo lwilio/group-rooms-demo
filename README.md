@@ -26,14 +26,25 @@ Next, we need to install our dependencies from npm:
 npm install
 ```
 
-Now we should be all set! Run the application:
+Now, copy npm dependencies required by client.js:
 ```bash
-npm start
+npm run doCopy
 ```
-Your application should now be running in all your network interfaces at port :3000
 
-* For connecting as a full participant you may open [https://localhost:3000/](https://localhost:3000/)
-* For connecting as only viewer participant you may open [https://localhost:3000/?role=onlyViewer](https://localhost:3000/?role=onlyViewer)
+
+Now we should be all set! Run the application. For this, you must specify the protocol (i.e.
+  http or https) and the port. Remember that, for security, Chrome will only allow
+  you to activate your media capture devices (i.e. camera and video) when you connect
+  from localhost or from an https secured connection.
+```bash
+node server.js https 8443
+```
+Where
+
+Your application should now be running in all your network interfaces at the specified port
+
+* For connecting as a full participant you may open [https://localhost:8443/](https://localhost:8443/)
+* For connecting as only viewer participant you may open [https://localhost:8443/?role=viewer](https://localhost:8443/?role=viewer)
 
 ## License
 
