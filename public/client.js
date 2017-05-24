@@ -35,6 +35,7 @@ function connectToRoom(msg) {
         window.room = room;
 
         //Display local tracks, if any
+        console.log("Attaching local tracks");
         room.localParticipant.tracks.forEach(function(track) {
             if (track.kind == "audio") return; //Typically, I don't want to listen my own audio
             var mediaElement = track.attach();
@@ -42,6 +43,7 @@ function connectToRoom(msg) {
         });
 
         //Display currently connected participants' tracks, if any
+        console.log("Managing pre-existing participants");
         room.participants.forEach(function(participant) {
             participant.tracks.forEach(attachTrack);
             manageConnectedParticipant(participant);

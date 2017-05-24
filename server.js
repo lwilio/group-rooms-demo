@@ -65,6 +65,8 @@ request.auth({
     sendImmediately: true
 });
 
+console.log("Creating room launching REST request to https://video.twilio.com/v1/Rooms");
+
 request.end(function(response) {
     if (response.error) {
         console.log("Error creating room " + response.error)
@@ -92,6 +94,8 @@ io.on('connection', function(socket) {
     //Client ask for an AccessToken. Generate a random identity and provide it.
     socket.on('getAccessToken', function(msg) {
 
+        console.log("getAccessToken request received");
+
         var userName = randomstring.generate(20);
 
         var accessToken = new AccessToken(
@@ -111,7 +115,7 @@ io.on('connection', function(socket) {
             roomName: roomName
         }
 
-        console.log("JWT accessToken generated: " + accessToken.toJwt());
+        console.log("JWT accessToken generated: " + accessToken.toJwt() + "\n");
 
         socket.emit("accessToken", answer);
     });
