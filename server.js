@@ -15,7 +15,7 @@ require('dotenv').load();
 
 //Load launch options from command line
 var protocol = process.argv[2];
-if(!protocol || protocol != 'http' || protocol != 'https'){
+if(!protocol || (protocol != 'http' && protocol != 'https')){
   protocol = 'http';
 }
 
@@ -42,10 +42,14 @@ if(protocol == 'https'){
 }
 
 server.listen(port, function() {
-    console.log("Express server listening on *:" + port);
+    console.log("Express server listening for " + protocol + " on *:" + port);
 });
 
 var io = require('socket.io')(server);
+
+/*********************************************************************
+INTERESTING STUFF STARTS BELOW THIS LINE
+**********************************************************************/
 
 //Create a room with a random name
 //Warning: this room will only exist for 5 minutes.
