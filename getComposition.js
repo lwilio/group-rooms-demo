@@ -24,8 +24,9 @@ if(!compositionSid){
   process.exit(-1);
 }
 
-client.video.compositions('CJabcd587059ef5779c382fe53f2bb9b08').fetch()
+client.video.compositions(compositionSid).fetch()
   .then(composition => {
+
     if (composition.status == 'processing') {
       console.log('The composition is still processing. Try in a few minutes ...')
     } else if (composition.status == 'completed') {
