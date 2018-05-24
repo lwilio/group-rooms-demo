@@ -44,6 +44,7 @@ dev.env
 # Socket.io client scripts
 public/socket.io-client
 public/detectrtc
+public/twilio-video
 
 # ngrok
 ngrok

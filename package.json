@@ -1,29 +1,29 @@
 {
     "name": "group-rooms-demo",
     "version": "0.0.1-dev",
-    "description": "Signal San Francisco 2017 - Programmable Video Group Rooms demo",
+    "description": "Twilio Programmable Video Group Rooms demo",
     "author": "Twilio",
     "license": "MIT",
     "repository": {
       "type": "git",
       "url": "https://github.com/lwilio/group-rooms-demo"
     },
-    "main": "server.js",
+    "main": "roomServer.js",
     "scripts": {
         "doCopySio": "copyfiles -f node_modules/socket.io-client/dist/socket.io.js public/socket.io-client/dist/",
         "doCopyDRTC": "copyfiles -f node_modules/detectrtc/DetectRTC.js public/detectrtc/",
-        "doCopy": "npm run doCopySio && npm run doCopyDRTC"
+        "doCopyTwilio": "copyfiles -f node_modules/twilio-video/dist/twilio-video.min.js public/twilio-video/",
+        "doCopy": "npm run doCopySio && npm run doCopyDRTC && npm run doCopyTwilio"
     },
     "dependencies": {
-        "express": "^4.15.2",
+        "express": "^4.16.3",
         "dotenv": "^4.0.0",
-        "socket.io": "^1.7.3",
-        "socket.io-client": "^1.7.3",
+        "socket.io": "^2.1.1",
+        "socket.io-client": "^2.1.1",
         "detectrtc": "^1.3.4",
         "randomstring": "^1.1.5",
-        "unirest": "^0.5.1",
-        "twilio": "^3.0.0",
-        "twilio-video": "^1.0.0"
+        "twilio": "^3.17.0",
+        "twilio-video": "^1.9.0"
     },
     "devDependencies": {
         "copyfiles": "^1.2.0"

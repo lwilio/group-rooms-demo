@@ -31,20 +31,49 @@ Now, copy npm dependencies required by client.js:
 npm run doCopy
 ```
 
+##Running the room service
 
-Now we should be all set! Run the application. For this, you must specify the protocol (i.e.
-  http or https) and the port. Remember that, for security, Chrome will only allow
-  you to activate your media capture devices (i.e. camera and video) when you connect
-  from localhost or from an https secured connection.
 ```bash
-node server.js https 8443
+./ngrok http 8080
+node roomServer.js my-room-name
 ```
-Where
 
-Your application should now be running in all your network interfaces at the specified port
+## roomServer.js command line parameters
+
+```bash
+node roomServer.js room-name protocol port
+```
+
+* `room name`: the room  name. Defaults to a random string.
+* `protocol`: protocol to be used (i.e. `http` or `https`). Defaults to http.
+Remember that due to WebRTC security constraints:
+      * When exposing the service through `ngrok` you must use `http`.
+      * When exposing the service from a public IP, you must use `https`.
+      * When only connecting from localhost, you may use `https`
+* `port`: port to be used. Defaults to:
+      * `8080` for `http`
+      * `8443` for `https`
+
+## Connecting to the room service
 
 * For connecting as a full participant you may open [https://localhost:8443/](https://localhost:8443/)
-* For connecting as only viewer participant you may open [https://localhost:8443/?role=viewer](https://localhost:8443/?role=viewer)
+* For connecting as only viewer participant you may open [https://localhost:8443/?enableVideo=false&enableAudio=false](https://localhost:8443/?enableVideo=false&enableAudio=false)
+* For specifying a userName (your published tracks will be named upon it)
+      [https://localhost:8443/?userName=alice](https://localhost:8443/?userName=alice)
+
+
+
+## createComposition.js command line parameters
+
+```bash
+node createComposition.js room-sid layout options
+```
+
+* `room-sid`: the room SID to be composed.
+* `layout`: we currently accept:
+      * `grid`: for a grid layout.
+      * `main-with-row`: for a layout comprising a main track and a bottom row.
+      In this case, you must specify the main track name or SID as `option`.
 
 ## License
 
